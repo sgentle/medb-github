@@ -48,5 +48,3 @@ get = (username) ->
     console.error("error getting github data", e)
 
 module.exports = (config) -> get config.username
-
-
