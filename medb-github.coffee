@@ -1,7 +1,7 @@
 jsdom = require 'jsdom'
 fetch = require 'node-fetch'
 
-CONTRIB_QUERY = '#contributions-calendar .contrib-number'
+CONTRIB_QUERY = '#contributions-calendar'
 POPULAR_REPO_QUERY = '.public.source'
 
 API_FIELDS = ['followers', 'following', 'public_repos', 'public_gists']
@@ -23,8 +23,7 @@ get = (username) ->
     d = {}
     d[k] = apidata[k] for k in API_FIELDS
 
-    [d.contributions_year, d.longest_streak, d.current_streak] =
-      Array.from($$(CONTRIB_QUERY)).map numcontent
+    d.contributions_year = parseInt($(CONTRIB_QUERY).parentNode.querySelector('h3').textContent) || 0
 
     repoStars = {}
     contribStars = {}
