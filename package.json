@@ -1,6 +1,6 @@
 {
   "name": "medb-github",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MeDB plugin for GitHub",
   "main": "index.js",
   "dependencies": {
