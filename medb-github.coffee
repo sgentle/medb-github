@@ -1,7 +1,7 @@
 jsdom = require 'jsdom'
 fetch = require 'node-fetch'
 
-CONTRIB_QUERY = '#contributions-calendar'
+CONTRIB_QUERY = '.js-contribution-graph > h2'
 POPULAR_REPO_QUERY = '.public.source'
 
 API_FIELDS = ['followers', 'following', 'public_repos', 'public_gists']
@@ -23,13 +23,13 @@ get = (username) ->
     d = {}
     d[k] = apidata[k] for k in API_FIELDS
 
-    d.contributions_year = parseInt($(CONTRIB_QUERY).parentNode.querySelector('h3').textContent) || 0
+    d.contributions_year = parseInt($(CONTRIB_QUERY).textContent.trim().replace(/,/g,'').split(' ')[0]) || 0
 
     repoStars = {}
     contribStars = {}
     popularRepoStars = 0
     for repoBlock in $$(POPULAR_REPO_QUERY)
-      stars = numcontent repoBlock.querySelector('.stars')
+      stars = numcontent repoBlock.querySelector('[href$=stargazers]')
       owner = repoBlock.querySelector('.owner')?.textContent
       repo = repoBlock.querySelector('.repo').textContent
 
